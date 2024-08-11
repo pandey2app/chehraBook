@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/output.css">
+    <script src="https://kit.fontawesome.com/a9fa1fc9b9.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main bg-zinc-900 min-h-screen">
+        <header class="flex justify-between border-b-[1px] border-zinc-200">
+            <div class=" w-2/12 px-2 py-4 flex justify-start ps-4 content-center text-5xl text-zinc-400">
+                <i class="fa-solid fa-bars cursor-pointer hover:text-zinc-300"></i>
+            </div>
+            <div class=" w-7/12 px-2 py-1">
+                <h1 class="text-center text-4xl text-zinc-400 uppercase font-serif font-bold">Chehra Book</h1>
+                <p class="text-center text-zinc-600 capitalize font-semibold font-mono text-2xl">A photo sharing
+                    application</p>
+            </div>
+            <div class=" w-3/12 px-2 py-1">
+                <% if(!user){ %>
+                    <div class="relative">
+                        <a href="/login"
+                            class="px-3 py-2 text-zinc-400 text-md absolute right-5 font-semibold hover:text-zinc-300">Login
+                            <i class="fa-solid fa-right-to-bracket"></i></a>
+                        <a href="/register"
+                            class="px-3 py-2 text-zinc-400 text-md absolute right-5 top-8 font-semibold hover:text-zinc-300">Register
+                            <i class="fa-solid fa-user-plus"></i></a>
+                    </div>
+                    <% } else { %>
+                        <div class="flex justify-center gap-2">
+                            <div class="w-3/5 py-2">
+                                <h5 class="text-xl text-zinc-400 font-sans font-semibold capitalize">
+                                    <%= user.name%>
+                                </h5>
+                                <p class="text-lg pt-2 text-zinc-500 font-mono ">
+                                    <%= user.username %> <a href="/logout"
+                                            class="text-red-500 cursor-pointer">Logout</a>
+                                </p>
+                            </div>
+                            <div class="w-20 h-20 rounded-full overflow-hidden">
+                                <a href="/profile:<%= user.username %>"></a>
+                                <img src="<%= user.image %>" alt="" class="h-20 ">
+                            </div>
+                        </div>
+                        <% } %>
+            </div>
+        </header>
+        <div class="flex my-2 w-full">
+            <section class="min-h-[788px] px-1 pt-1 w-3/12 rounded-md border-e-[1px]">
+                <div class="relative">
+                    <input type="text" id="input-search-user" placeholder="Search users by name & user ID..."
+                        class="w-full p-3 text-zinc-200 rounded-md focus:outline-none bg-transparent border border-zinc-600 focus:ring-zinc-500">
+                    <i id="btn-search-user"
+                        class="cursor-pointer hover:text-zinc-300  fa-solid fa-search absolute right-4 top-4 text-zinc-400"></i>
+                </div>
+                <div class="ms-2 ">
+                    <p id="search-user-heading" class="text-zinc-500 font-semibold text-lg capitalize mt-2">suggested
+                        users</p>
+
+                </div>
+            </section>
+            <section class="w-9/12">
+                <div class="flex justify-evenly w-full gap-3 py-1 px-2">
+                    <form action="/search-post" method="post" class="relative w-6/12">
+                        <input type="text" id="input-search-post" name="query"
+                            placeholder="Search posts by hashtags, topics & users..."
+                            class="w-full p-3 text-zinc-200 rounded-md focus:outline-none bg-transparent border border-zinc-600 focus:ring-zinc-500">
+                        <button type="submit" id="btn-search-post"
+                            class="cursor-pointer hover:text-zinc-300  fa-solid fa-search absolute right-4 top-4 text-zinc-400"></button>
+                    </form>
+                    <form action="/add-post" method="post" class="relative w-6/12">
+                        <input type="text" id="input-post" placeholder="Tell something to the community..." name="caption"
+                            class="w-full p-3 text-zinc-200 rounded-md focus:outline-none bg-transparent border border-zinc-600 focus:ring-zinc-500">
+                        <input type="text" id="input-image" name="image"
+                            class="w-full hidden mt-2 p-3 text-zinc-200 rounded-md focus:outline-none bg-transparent border border-zinc-600 focus:ring-zinc-500">
+                        <i id="btn-add-image"
+                            class="cursor-pointer hover:text-zinc-300  fa-solid fa-image absolute right-14 top-4 text-zinc-400"></i>
+                        <button type="submit" id="btn-add-post"
+                            class="cursor-pointer hover:text-zinc-300  fa-solid fa-add absolute right-4 top-4 text-zinc-400"></button>
+                        <input type="submit" id="add-post-button" value="add post" class="bg-blue-500 hidden cursor-pointer mt-2 text-white rounded-md px-4 py-1 ">
+                    </form>
+                </div>
+                <div class="flex w-full flex-wrap justify-around gap-4 py-1 px-2">
+                    <% if(posts.length){ %>
+                        <% posts.forEach((post)=>{ %>
+                            <div
+                                class="card w-[32%] rounded-lg overflow-hidden min-h-72 border-b-[1px] border border-zinc-200">
+                                <div class="img w-full border-b-2 border-zinc-400">
+                                    <img src="<%= post.image %>"
+                                        alt="" class="object-cover w-full">
+                                </div>
+                                <div class="mt-2 px-2">
+                                    <h5 class="text-xl text-zinc-400 font-sans font-semibold capitalize"><%= post.caption %></h5>
+                                    <p class="text-lg text-zinc-500 font-mono">@pandey2app</p>
+                                    <p class="text-sm text-blue-500 font-sans">
+                                        <% if(post.hashtags.length){ %>
+                                            <% post.hashtags.forEach(tag=>{ %>
+                                                <span class="mx-1"><%= tag %></span>
+                                            <% }) %>
+                                        <% } %>
+                                    </p>
+                                </div>
+                            </div>
+                            <% }) %>
+                  <% } else { %>
+                    <p class="text-center text-lg text-zinc-500 font-semibold">No posts found</p>
+                  <% } %>
+                </div>
+            </section>
+        </div>
+
+
+    </div>
+    <script src="/js/script.js"></script>
+</body>
+
+</html>

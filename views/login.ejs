@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/output.css">
+    <script src="https://kit.fontawesome.com/a9fa1fc9b9.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main bg-zinc-900 min-h-screen">
+        <header class="flex justify-between border-b-[1px] border-zinc-200">
+            <div class=" w-2/12 px-2 py-4 flex justify-start ps-4 content-center text-5xl text-zinc-400">
+                <i class="fa-solid fa-bars cursor-pointer hover:text-zinc-300"></i>
+            </div>
+            <div class=" w-7/12 px-2 py-1">
+                <h1 class="text-center text-4xl text-zinc-400 uppercase font-serif font-bold">Chehra Book</h1>
+                <p class="text-center text-zinc-600 capitalize font-semibold font-mono text-2xl">A photo sharing
+                    application</p>
+            </div>
+            <div class=" w-3/12 px-2 py-1">
+                <div class="relative">
+                    <a href="/register"
+                        class="px-3 py-2 text-zinc-400 text-md absolute right-5 top-8 font-semibold hover:text-zinc-300">Register
+                        now
+                        <i class="fa-solid fa-user-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div class="w-full">
+            <div class="flex justify-between pt-4 mb-4 px-10">
+                <h1 class="tracking-tighter text-zinc-400 text-3xl font-serif">Login with email and password</h1>
+            </div>
+            <form action="/login" method="post" class="px-10 flex gap-3 pt-4 me-4">
+
+                <input type="email" placeholder="Your email Here" name="email"
+                    class="px-2 flex-1 py-1 bg-transparent border border-zinc-400 text-zinc-400 text-lg  rounded-lg outline-none">
+                <input type="password" placeholder="Your Password Here" name="password"
+                    class="px-2 flex-1 py-1 bg-transparent border border-zinc-400 text-zinc-400 text-lg  rounded-lg outline-none">
+
+                <input type="submit" value="Login"
+                    class="block px-3 py-1 bg-blue-700 text-lg font-serif uppercase text-white rounded-lg">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
