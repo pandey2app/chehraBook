@@ -17,15 +17,16 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.get('/', isLoggedIn, async (req, res) => {
-  if (req.user.email) {
-    const user = await userModel.findOne({ email: req.user.email })
-    const posts = await postModel.find()
-    if (!user) {
-      return res.cookie('token', '').redirect('/');
-    }    
-    res.render('index', { user, posts });
-  }
+app.get('/', async (req, res) => {
+  // if (req.user.email) {
+  //   const user = await userModel.findOne({ email: req.user.email })
+  //   const posts = await postModel.find()
+  //   if (!user) {
+  //     return res.cookie('token', '').redirect('/');
+  //   }    
+  //   res.render('index', { user, posts });
+  // }
+  res.send("Welcome");
 });
 
 app.get('/register', (req, res) => {
