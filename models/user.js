@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema({
     username: String,
     image: String,
     phone: String,
-    posts : [{type : mongoose.Schema.Types.ObjectId, ref: 'post'}]
+    posts : [{type : mongoose.Schema.Types.ObjectId, ref: 'post'}],
+    likedPosts : [{type : mongoose.Schema.Types.ObjectId, ref: 'post'}]
 });
 
 module.exports = mongoose.model('user', userSchema);

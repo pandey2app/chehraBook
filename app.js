@@ -23,8 +23,7 @@ app.get('/', isLoggedIn, async (req, res) => {
     const posts = await postModel.find()
     if (!user) {
       return res.cookie('token', '').redirect('/');
-    }
-    
+    }    
     res.render('index', { user, posts });
   }
 });
@@ -100,10 +99,28 @@ app.post('/add-post', isLoggedIn, async (req, res) => {
     });
   }
 
-  const post = await postModel.create({ caption, image, user: user._id, hashtags: hashtags});
+  const post = await postModel.create({ caption, image, user: user._id, username: user.username, hashtags: hashtags});
   user.posts.push(post._id);
   user.save();
   res.redirect('/');
+})
+
+app.get('/like/:id', isLoggedIn, async (req, res) => {
+  const user = await userModel.findOne({ email: req.user.email });
+  const post = await postModel.findOne({ _id : req.params.id});
+  if(user.likedPosts.indexOf(req.params.id) > -1){
+    console.log('old post', req.params.id, post.likes.indexOf(user._id));
+
+    post.likes.splice(post.likes.indexOf(user._id), 1);
+    user.likedPosts.splice(user.likedPosts.indexOf(post._id), 1);
+  }else{
+    post.likes.push(user._id);
+    user.likedPosts.push(post._id);
+    console.log('new post', req.params.id);
+  }
+  post.save();
+  user.save();
+  res.redirect('/');  
 })
 
 function isLoggedIn(req, res, next) {

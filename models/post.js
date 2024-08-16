@@ -6,9 +6,17 @@ const postSchema = mongoose.Schema({
     hashtags: [{
         type: String,        
     }],
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+    }],
     image: String,
     user : {
         type : mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    username : {
+        type : mongoose.Schema.Types.String,
         ref: 'user'
     },
     date:{
